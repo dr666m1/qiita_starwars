@@ -21,4 +21,4 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: ghcr.io/dr666m1/myr:latest
+          tags: ghcr.io/dr666m1/qiita_starwars:latest
