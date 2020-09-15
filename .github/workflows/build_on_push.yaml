@@ -5,6 +5,16 @@ jobs:
     name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
     steps:
+      - name: Prepare
+        id: prep
+        run: |
+          echo $GITHUB_REF
+          if [[ $GITHUB_REF == refs/tags/* ]]; then
+            TAG=${GITHUB_REF#refs/tags/}
+          else
+            TAG="latest"
+          fi
+          echo "::set-output name=tag::${TAG}"
       - name: Checkout
         uses: actions/checkout@v2
       - name: Set up QEMU
@@ -21,4 +31,4 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: ghcr.io/dr666m1/qiita_starwars:latest
+          tags: ghcr.io/dr666m1/qiita_starwars:${{ steps.prep.outputs.tag }}
