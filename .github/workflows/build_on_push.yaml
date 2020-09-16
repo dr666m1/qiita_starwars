@@ -8,14 +8,12 @@ jobs:
       - name: Prepare
         id: prep
         run: |
-          echo $GITHUB_REF
           if [[ $GITHUB_REF == refs/tags/* ]]; then
             TAG=${GITHUB_REF#refs/tags/}
           else
             TAG="latest"
           fi
           echo "::set-output name=tag::${TAG}"
-        shell: bash
       - name: Checkout
         uses: actions/checkout@v2
       - name: Set up QEMU
